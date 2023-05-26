@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Añadir un Paciente{% endblock %}
+
+{% block content %}
+    <div class="card" style="width: 100vw; height: 100vh;">
+        <center>
+            <img class="card-img-top" src="data:image/png;base64,{{ image }}" alt="Sin Pacientes" style="width: 35rem; height: auto">
+        </center>
+        <div class="card-body">
+            <div class="card-title">Añadir un paciente</div>
+            <p class="card-text">Aquí puedes agregar la información del paciente</p>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre del paciente" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">Edad</label>
+                    <div class="form-inline">
+                        <p>Años</p>
+                        <input type="number" class="form-control" id="age" name="age" value="0" min="0" required>
+                        <p>Meses</p>
+                        <input type="number" class="form-control" id="months" name="months" min="0" max="12" value="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="id">Identificación</label>
+                    <input type="number" class="form-control" id="id" name="id" placeholder="Identificación del paciente" required>
+                </div>
+                <div class="form-group">
+                    <label for="case">Caso</label>
+                    <input type="text" class="form-control" id="case" name="case" placeholder="Caso del paciente">
+                </div>
+                <div class="form-group">
+                    <label for="priority">Prioridad</label>
+                    <select class="form-control" id="priority" name="priority" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar Paciente</button>
+            </form>
+        </div>
+        <div class="card-footer">
+            <p class="card-text">Paciente creado: {{ patient }}</p>
+        </div>
+    </div>
+{% endblock %}

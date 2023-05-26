@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Añadir un Paciente{% endblock %}
+
+{% block content %}
+    <div class="card" style="width: 100vw; height: 100vh;">
+        <center>
+            <img class="card-img-top" src="data:image/png;base64,{{ image }}" alt="Sin Pacientes"
+                 style="width: 35rem; height: auto">
+        </center>
+        <div class="card-body">
+            <div class="card-title">Añadir un paciente</div>
+            <p class="card-text">Aquí puedes agregar la información del paciente</p>
+            <form method="get">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id">Identificación</label>
+                    <input type="number" class="form-control" id="id" name="search-id"
+                           placeholder="Identificación del paciente">
+                </div>
+                <button type="submit" class="btn btn-primary">Buscar Paciente</button>
+            </form>
+            <div class="card-footer">
+                <form method="post" action="{% url 'modify_patient' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="modify_patient">
+                    <input type="hidden" name="hidden-id" value="{{ patient.id }}">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" id="name" name="modify-name"
+                               placeholder="Nombre del paciente" value="{{ patient.name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Edad</label>
+                        <div class="form-inline">
+                            <p>Años</p>
+                            <input type="number" class="form-control" id="age" name="modify-age" value="{{ patient.date.year }}" min="0" required>
+                            <p>Meses</p>
+                            <input type="number" class="form-control" id="months" name="modify-months" min="0" max="12" value="{{ patient.date.months }}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="hidden-id">Identificación</label>
+                        <input type="number" class="form-control" id="id" name="modify-id"
+                               placeholder="Identificación del paciente" disabled value="{{ patient.id }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="case">Caso</label>
+                        <input type="text" class="form-control" id="case" name="modify-case"
+                               placeholder="Caso del paciente" value="{{ patient.case }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="priority">Prioridad</label>
+                        <select class="form-control" id="priority" name="modify-priority" required>
+                            {% for i in '12345' %}
+                                <option value="{{ i }}" {% if patient.priority == i %}selected{% endif %}>{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Modificar Paciente</button>
+                </form>
+                <form method="post" action="{% url 'modify_patient' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="delete_patient">
+                    <div class="form-group">
+                        <label for="delete_id">Identificación</label>
+                        <input type="number" class="form-control" id="delete_id" name="delete_id"
+                               placeholder="Digite nuevamente el ID para eliminar">
+                    </div>
+                    <button type="submit" class="btn btn-danger">Eliminar Paciente</button>
+                    {% if message == "success" %}
+                        <div class="alert alert-success" role="alert">
+                            Cita eliminada correctamente
+                        </div>
+                    {% endif %}
+                    {% if message == "error" %}
+                        <div class="alert alert-danger" role="alert">
+                            No se pudo eliminar la cita, no encontramos el paciente por el ID que nos diste.
+                        </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

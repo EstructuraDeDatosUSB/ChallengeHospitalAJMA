@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Añadir un Paciente{% endblock %}
+
+{% block content %}
+    <div class="card" style="width: 100vw; height: 100vh;">
+        <center>
+            <img class="card-img-top" src="data:image/png;base64,{{ image }}" alt="Sin Pacientes" style="width: 35rem; height: auto">
+        </center>
+        <div class="card-body">
+            <div class="card-title">Tomar cita</div>
+            <p class="card-text">Aqui puedes tomar la cita con mas prioridad</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Agregar Paciente</button>
+            </form>
+        </div>
+        <div class="card-footer">
+            <div class="card-title">Información de la Cita</div>
+            <div class="card-subtitle">Nombre:</div>
+            <p class="card-text">{{ patient.name }}</p>
+            <div class="card-subtitle">Edad:</div>
+            <p class="card-text">{{ patient.age }}</p>
+            <div class="card-subtitle">ID:</div>
+            <p class="card-text">{{ patient.id }}</p>
+            <div class="card-subtitle">Case:</div>
+            <p class="card-text">{{ patient.case }}</p>
+            <div class="card-subtitle">Prioridad</div>
+            <p class="card-text">{{ patient.priority }}</p>
+        </div>
+    </div>
+{% endblock %}
