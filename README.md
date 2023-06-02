@@ -84,7 +84,7 @@ Cada nodo contiene un valor y enlaces a sus hijos izquierdo y derecho.
 
 Este proyecto fue desarrollado por los siguientes miembros de la organización EstructuraDeDatosUSB en Github:
 
-- Gustavo Camargo (Dueño de la organización)
+- Gustavo Camargo
 - Dillan Asprilla
 - Mariana Cruz
 - Juan Manuel Conde
