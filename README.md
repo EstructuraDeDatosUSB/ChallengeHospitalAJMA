@@ -45,7 +45,7 @@ Algunos comandos son:
 
 ## Características
 
-### TDA Monticulo:
+### TDA Maxheap:
 - Permite insertar elementos en el montículo.
 - Mantiene los elementos en orden de prioridad, donde el elemento de mayor prioridad se encuentra en la raíz del montículo.
 - Permite eliminar el elemento de mayor prioridad (raíz) del montículo.
@@ -59,7 +59,19 @@ Algunos comandos son:
 
 - En el ejemplo de código proporcionado, se crea una instancia de la clase MaxHeap llamada patientsMaxHeap y se realizan algunas operaciones de inserción. Luego se imprime el montículo resultante.
 
+### TDA Minheap:
+Cada nodo contiene un valor y enlaces a sus hijos izquierdo y derecho.
+- Permite insertar valores en el heap.
+- Mantiene los elementos en orden de prioridad, donde el elemento de menor prioridad se encuentra en la raíz del heap.
+- Permite eliminar el elemento de menor prioridad (raíz) del heap.
+- Permite obtener el último nodo del heap.
+- Permite realizar el proceso de heapify hacia arriba, intercambiando un nodo con su padre si el valor del nodo es menor que el de su padre.
+- Permite realizar el proceso de heapify hacia abajo, intercambiando un nodo con su hijo más pequeño si el valor del nodo es mayor que el de su hijo más pequeño.
+- Permite obtener el padre de un nodo dado.
+- Permite imprimir el heap en orden de nivel.
+
 ### Aplicacion:
+- Se usa el TDA Maxheap
 - Permite agregar nuevos pacientes al sistema.
 - Permite asignar una prioridad a cada paciente en su creación.
 - Permite editar la prioridad de un paciente ya existente.
