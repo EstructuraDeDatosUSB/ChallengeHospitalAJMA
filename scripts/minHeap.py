@@ -5,6 +5,12 @@ This is a heap ADT, which is a complete binary tree that is either a min-heap or
 
 class Node:
     def __init__(self, value):
+        """
+        Es el constructor de la clase Node
+        Parameters
+        ----------
+        value
+        """
         self.value = value
         self.left = None
         self.right = None
@@ -12,10 +18,23 @@ class Node:
 
 class MinHeap:
     def __init__(self):
+        """
+        Es el constructor de la clase MinHeap
+        """
         self.root = None
         self.size = 0
 
     def insert(self, value):
+        """
+        Inserta un valor en el heap
+        Parameters
+        ----------
+        value
+
+        Returns
+        -------
+
+        """
         if not self.root:
             self.root = Node(value)
             self.size += 1
@@ -39,6 +58,12 @@ class MinHeap:
                 node_queue.pop(0)
 
     def delete(self):
+        """
+        Elimina un valor del heap
+        Returns
+        -------
+        El valor eliminado
+        """
         if not self.root:
             return None
 
@@ -62,6 +87,12 @@ class MinHeap:
         return deleted_value
 
     def _get_last_node(self):
+        """
+        Obtiene el último nodo del heap
+        Returns
+        -------
+        El último nodo del heap
+        """
         if not self.root:
             return None
 
@@ -77,6 +108,15 @@ class MinHeap:
         return current_node
 
     def _heapify_up(self, node):
+        """
+        Se encarga de hacer heapify up que consiste en intercambiar el nodo con su padre si el valor del nodo es menor
+        Parameters
+        ----------
+        node
+
+        Returns
+        -------
+        """
         while node != self.root:
             parent = self._get_parent(node)
             if node.value < parent.value:
@@ -84,6 +124,16 @@ class MinHeap:
             node = parent
 
     def _heapify_down(self, node):
+        """
+        Se encarga de hacer heapify down que consiste en intercambiar el nodo con su hijo si el valor del hijo es menor
+        Parameters
+        ----------
+        node
+
+        Returns
+        -------
+
+        """
         while node:
             smallest = node
             if node.left and node.left.value < smallest.value:
@@ -98,6 +148,16 @@ class MinHeap:
                 break
    
     def _get_parent(self, node):
+        """
+        Obtiene el padre de un nodo
+        Parameters
+        ----------
+        node
+
+        Returns
+        -------
+
+        """
         node_queue = [self.root]
         while node_queue:
             current_node = node_queue.pop(0)
@@ -112,6 +172,11 @@ class MinHeap:
 
 
     def print(self):
+        """
+        Imprime el heap
+        Returns
+        -------
+        """
         if not self.root:
             return
 
@@ -126,10 +191,24 @@ class MinHeap:
         print()
 
     def prioritize_heap(self, mode):
+        """
+        Se encarga de priorizar el heap
+        Parameters
+        ----------
+        mode
+        Returns
+        -------
+        """
         if mode == 'min':
             self._convert_to_min_heap()
 
     def _convert_to_min_heap(self):
+        """
+        Convierte el heap en un min heap
+        Returns
+        -------
+        El heap convertido en min heap
+        """
         if not self.root:
             return
 
