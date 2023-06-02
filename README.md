@@ -9,7 +9,6 @@ Este programa utiliza el TDA de Montículos para modelar un sistema de prioridad
 - [Características](#características)
 - [Créditos](#créditos)
 - [Licencia](#licencia)
-- [Contacto](#contacto)
 
 ## Instalación
 
