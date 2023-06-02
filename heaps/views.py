@@ -6,6 +6,17 @@ from scripts.maxHeap import patientsMaxHeap
 
 
 def create_patient(request):
+    """
+    Esta función se encarga de crear un paciente y agregarlo al heap de pacientes.
+    Parameters
+    ----------
+    request
+
+    Returns
+    -------
+    El render de la página de creación de pacientes con el paciente creado y el heap visualizado.
+
+    """
     context = {}
     if request.method == 'POST':
 
@@ -41,6 +52,17 @@ def create_patient(request):
 
 
 def get_appointment(request):
+    """
+    Esta función se encarga de obtener el paciente con mayor prioridad y eliminarlo del heap.
+    Parameters
+    ----------
+    request
+
+    Returns
+    -------
+    El render de la página de obtención de citas con el paciente obtenido y el heap visualizado.
+
+    """
     context = {}
     if request.method == 'POST':
         patient = patientsMaxHeap.delete()
@@ -54,6 +76,17 @@ def get_appointment(request):
 
 
 def modify_patient(request):
+    """
+    Esta función se encarga de modificar un paciente y actualizarlo en el heap.
+    Parameters
+    ----------
+    request
+
+    Returns
+    -------
+    El render de la página de modificación de pacientes con el paciente modificado y el heap visualizado.
+
+    """
     context = {}
     if request.method == 'GET':
         patient_id = request.GET.get('search-id')

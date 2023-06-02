@@ -2,7 +2,6 @@
 This is a heap ADT, which is a complete binary tree that is either a min-heap or a max-heap.
 """
 
-import graphviz
 
 class Node:
     def __init__(self, value):
@@ -97,7 +96,6 @@ class MinHeap:
                 node = smallest
             else:
                 break
-
    
     def _get_parent(self, node):
         node_queue = [self.root]
@@ -112,23 +110,6 @@ class MinHeap:
             if current_node.right:
                 node_queue.append(current_node.right)
 
-    def visualize(self):
-        if not self.root:
-            return
-
-        graph = graphviz.Digraph()
-        node_queue = [self.root]
-        while node_queue:
-            current_node = node_queue.pop(0)
-            graph.node(str(current_node.value))
-            if current_node.left:
-                graph.edge(str(current_node.value), str(current_node.left.value))
-                node_queue.append(current_node.left)
-            if current_node.right:
-                graph.edge(str(current_node.value), str(current_node.right.value))
-                node_queue.append(current_node.right)
-
-        graph.view()   
 
     def print(self):
         if not self.root:
@@ -188,4 +169,4 @@ heap.insert(13)
 
 heap.prioritize_heap('min')
 
-heap.visualize()
+heap.print()

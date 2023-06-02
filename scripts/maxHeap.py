@@ -7,6 +7,12 @@ matplotlib.use('Agg')
 
 class Node:
     def __init__(self, value):
+        """
+        Constructor de la clase Node
+        Parameters
+        ----------
+        value
+        """
         self.value = value
         self.left = None
         self.right = None
@@ -14,10 +20,21 @@ class Node:
 
 class MaxHeap:
     def __init__(self):
+        """
+        Constructor de la clase MaxHeap
+        """
         self.root = None
         self.size = 0
 
     def insert(self, value):
+        """
+        Inserta un nuevo nodo en el heap
+        Parameters
+        ----------
+        value
+        Returns
+        -------
+        """
         if not self.root:
             self.root = Node(value)
             self.size += 1
@@ -42,6 +59,12 @@ class MaxHeap:
                 node_queue.pop(0)
 
     def delete(self):
+        """
+        Elimina el nodo con mayor prioridad
+        Returns
+        -------
+        Si el heap esta vacio retorna None, de lo contrario retorna el valor del nodo eliminado
+        """
         if not self.root:
             return None
 
@@ -65,6 +88,12 @@ class MaxHeap:
         return deleted_value
 
     def _get_last_node(self):
+        """
+        Obtiene el ultimo nodo del heap
+        Returns
+        -------
+        Si el heap esta vacio retorna None, de lo contrario retorna el ultimo nodo
+        """
         if not self.root:
             return None
         current_node = None
@@ -80,6 +109,15 @@ class MaxHeap:
         return current_node
 
     def _heapify_up(self, node):
+        """
+        Reordena el heap de abajo hacia arriba
+        Parameters
+        ----------
+        node
+        Returns
+        -------
+        Si el heap esta vacio retorna None, de lo contrario retorna el ultimo nodo
+        """
         parent = self._get_parent(node)
         while parent and (int(node.value['priority']) > int(parent.value['priority']) or
                           (int(node.value['priority']) == int(parent.value['priority']) and
@@ -89,11 +127,31 @@ class MaxHeap:
             parent = self._get_parent(node)
 
     def _swap_values(self, node1, node2):
+        """
+        Intercambia los valores de dos nodos
+        Parameters
+        ----------
+        node1
+        node2
+
+        Returns
+        -------
+        """
         temp = node1.value
         node1.value = node2.value
         node2.value = temp
 
     def _heapify_down(self, node):
+        """
+        Reordena el heap de arriba hacia abajo
+        Parameters
+        ----------
+        node
+
+        Returns
+        -------
+
+        """
         while node:
             largest = node
             if node.left and (int(node.left.value['priority']) > int(largest.value['priority']) or
@@ -112,6 +170,16 @@ class MaxHeap:
                 break
 
     def _get_parent(self, node):
+        """
+        Obtiene el padre de un nodo
+        Parameters
+        ----------
+        node
+
+        Returns
+        -------
+        Si el nodo es la raiz retorna None, de lo contrario retorna el padre del nodo
+        """
         node_queue = [self.root]
         while node_queue:
             current_node = node_queue.pop(0)
@@ -125,6 +193,15 @@ class MaxHeap:
                 node_queue.append(current_node.right)
 
     def delete_specific(self, id):
+        """
+        Elimina un nodo especifico
+        Parameters
+        ----------
+        id
+        Returns
+        -------
+        Si el heap esta vacio retorna None, de lo contrario retorna el valor del nodo eliminado
+        """
         if not self.root:
             return None
 
@@ -157,6 +234,15 @@ class MaxHeap:
         return None
 
     def get_node(self, id):
+        """
+        Obtiene un nodo especifico
+        Parameters
+        ----------
+        id
+        Returns
+        -------
+        Si el nodo existe, retorna el nodo, de lo contrario retorna None
+        """
         if not self.root:
             return None
 
@@ -174,6 +260,12 @@ class MaxHeap:
         return None
 
     def get_sorted_elements(self):
+        """
+        Obtiene los elementos del heap ordenados
+        Returns
+        -------
+        Si el heap esta vacio retorna None, de lo contrario retorna una lista con los elementos ordenados
+        """
         sorted_elements = []
         heap_copy = MaxHeap()  # Creamos una copia del montículo original para no modificarlo
 
@@ -189,22 +281,14 @@ class MaxHeap:
 
         return sorted_elements
 
-    def visualiz2(self):
-        if not self.root:
-            return
-
-        fig, ax = plt.subplots()
-        self._plot_node(ax, self.root, 0, 0, 0.8)
-        ax.axis('off')
-        buffer = BytesIO()
-        plt.savefig(buffer, format='png')
-        plt.clf()
-
-        image_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
-        buffer.close()
-        return image_base64
-
     def visualize(self):
+        """
+        Visualiza el heap
+
+        Returns
+        -------
+        Si el heap esta vacio retorna None, de lo contrario retorna una cadena en base64 con la imagen del heap
+        """
         if not self.root:
             return
 
@@ -242,42 +326,13 @@ class MaxHeap:
 
         return image_base64
 
-    def _plot_node(self, ax, node, x, y, level):
-        if not node:
-            return
-
-        ax.annotate(f"id: {node.value['id']}\npr: {node.value['priority']}",
-                    (x, y),
-                    ha='center',
-                    va='center',
-                    bbox=dict(facecolor='white', edgecolor='black'))
-
-        if node.left:
-            x_left = x - 0.5 / (2 ** level)
-            y_left = y - 1
-            ax.plot([x, x_left], [y, y_left], '-k')
-            self._plot_node(ax, node.left, x_left, y_left, level + 1)
-
-        if node.right:
-            x_right = x + 0.5 / (2 ** level)
-            y_right = y - 1
-            ax.plot([x, x_right], [y, y_right], '-k')
-            self._plot_node(ax, node.right, x_right, y_right, level + 1)
-
-    def convert_to_max_heap(self):
-        if not self.root:
-            return
-
-        node_queue = [self.root]
-        while node_queue:
-            current_node = node_queue.pop(0)
-            self._heapify_down(current_node)
-            if current_node.left:
-                node_queue.append(current_node.left)
-            if current_node.right:
-                node_queue.append(current_node.right)
-
     def print(self):
+        """
+        Imprime los elementos del heap
+        Returns
+        -------
+        Si el heap esta vacio retorna None, de lo contrario imprime los elementos del heap
+        """
         if not self.root:
             return
 
@@ -328,5 +383,3 @@ patientsMaxHeap.insert({
     'priority': "5",
     'case': 'fever'
 })
-
-patientsMaxHeap.print()
